@@ -3,7 +3,6 @@ package collection;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Queue;
 
 public class MyLinkedList<E> extends AbstractList<E> implements Deque<E> {
 
@@ -64,21 +63,23 @@ public class MyLinkedList<E> extends AbstractList<E> implements Deque<E> {
         }
 
         if (index == 0) {
-            pollFirst();
-        } else if (index == size() - 1) {
-            pollLast();
+            return pollFirst();
         }
-        else {
-            Node<E> previous = head;
-            for (int i = 0; i < index - 1; i++) {
-                previous = previous.next;
-            }
+        Node<E> previous = head;
+        for (int i = 0; i < index - 1; i++) {
+            previous = previous.next;
+        }
 
-            Node<E> removed = previous.next;
-            previous.next = removed.next;
-            size--;
-            return removed.element;
+        Node<E> removed = previous.next;
+        previous.next = removed.next;
+
+        if (size() - 1 == index) {
+            tail = previous;
         }
+
+        size--;
+
+        return removed.element;
     }
 
     @Override
@@ -116,7 +117,7 @@ public class MyLinkedList<E> extends AbstractList<E> implements Deque<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new IteratorImpl();
     }
 
     @Override
@@ -200,17 +201,23 @@ public class MyLinkedList<E> extends AbstractList<E> implements Deque<E> {
 
     @Override
     public E removeFirst() {
-        return null; // hw
+        if (size() == 0) {
+            throw new NoSuchElementException("Queue is empty");
+        }
+        return pollFirst(); // hw
     }
 
     @Override
     public E removeLast() {
-        return null; // hw
+        if (size() == 0) {
+            throw new NoSuchElementException("Queue is empty");
+        }
+        return pollLast(); // hw
     }
 
     @Override
     public E pollFirst() {
-        if (size == 0) {
+        if (size() == 0) {
             return null;
         } else {
             Node<E> tempNode = head;
@@ -226,28 +233,33 @@ public class MyLinkedList<E> extends AbstractList<E> implements Deque<E> {
 
     @Override
     public E pollLast() {
-        // hw
-        return null;
+        return remove(size() - 1);
     }
 
     @Override
     public E getFirst() {
-        return null;
+        if (size() == 0) {
+            throw new NoSuchElementException("Queue is empty");
+        }
+        return peek();
     }
 
     @Override
     public E getLast() {
-        return null;
+        if (size() == 0) {
+            throw new NoSuchElementException("Queue is empty");
+        }
+        return peekLast();
     }
 
     @Override
     public E peekFirst() {
-        return null;
+        return peek();
     }
 
     @Override
     public E peekLast() {
-        return null;
+        return get(size() - 1);
     }
 
     @Override
@@ -310,6 +322,27 @@ public class MyLinkedList<E> extends AbstractList<E> implements Deque<E> {
 
         public Node(E element) {
             this.element = element;
+        }
+    }
+
+    private class IteratorImpl implements Iterator<E> {
+
+        private Node<E> current;
+
+        IteratorImpl() {
+            current = head;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public E next() {
+            E e = current.element;
+            current = current.next;
+            return e;
         }
     }
 }

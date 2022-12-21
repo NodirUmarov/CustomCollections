@@ -1,21 +1,28 @@
 import collection.MyArrayList;
 import collection.MyLinkedList;
+import collection.MyList;
 
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class Main {
     public static void main(String[] args) {
-        Deque<String> linkedList = new LinkedList<>();
+        Queue<String> linkedList = new MyLinkedList<>();
 
-        linkedList.addFirst("A");
-        linkedList.offerFirst("B");
-        linkedList.offer("C");
+        linkedList.add("A");
+        linkedList.offer("B");
 
-        System.out.println(linkedList.poll());
-        System.out.println(linkedList.poll());
-        System.out.println(linkedList.poll());
+        Deque<String> dequeLinkedList = (Deque<String>) linkedList;
+        dequeLinkedList.offerFirst("C");
+        dequeLinkedList.offerFirst("D");
+        dequeLinkedList.offerFirst("E");
+
+        MyList<String> list = (MyList<String>) dequeLinkedList;
+        list.add(2, "F");
+
     }
 }
