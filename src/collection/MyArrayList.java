@@ -1,7 +1,10 @@
 package collection;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class MyArrayList<E> extends AbstractList<E> {
 
@@ -46,9 +49,29 @@ public class MyArrayList<E> extends AbstractList<E> {
     }
 
     @Override
-    public int indexOf(E element) {
+    public E set(int index, E element) {
+        E replaced = data[index];
+        data[index] = element;
+        return replaced;
+    }
+
+    @Override
+    public int indexOf(Object element) {
         int index = -1;
         for (int i = 0; i < size(); i++) {
+            if (data[i].equals(element)) {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    @Override
+    public int lastIndexOf(Object element) {
+        int index = -1;
+        for (int i = size() - 1; i >= 0; i--) {
             if (data[i].equals(element)) {
                 index = i;
                 break;
@@ -58,15 +81,18 @@ public class MyArrayList<E> extends AbstractList<E> {
     }
 
     @Override
-    public int lastIndexOf(E element) {
-        int index = -1;
-        for (int i = size() - 1; i >= 0; i--) {
-            if (data[i].equals(element)) {
-                index = i;
-                break;
-            }
-        }
-        return index;
+    public ListIterator<E> listIterator() {
+        return null;
+    }
+
+    @Override
+    public ListIterator<E> listIterator(int index) {
+        return null;
+    }
+
+    @Override
+    public List<E> subList(int fromIndex, int toIndex) {
+        return null;
     }
 
     @Override
@@ -121,6 +147,11 @@ public class MyArrayList<E> extends AbstractList<E> {
     @Override
     public <T> T[] toArray(T[] a) {
         return null;
+    }
+
+    @Override
+    public boolean addAll(int index, Collection<? extends E> c) {
+        return false;
     }
 
     private void ensureCapacity() {

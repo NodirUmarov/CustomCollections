@@ -1,7 +1,10 @@
 package collection;
 
+import java.util.Collection;
 import java.util.Deque;
 import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 public class MyLinkedList<E> extends AbstractList<E> implements Deque<E> {
@@ -29,7 +32,18 @@ public class MyLinkedList<E> extends AbstractList<E> implements Deque<E> {
     }
 
     @Override
-    public int indexOf(E element) {
+    public E set(int index, E element) {
+        Node<E> current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        E replaced = current.element;
+        current.element = element;
+        return replaced;
+    }
+
+    @Override
+    public int indexOf(Object element) {
         Node<E> currentNode = head;
 
         for (int i = 0; i < size(); i++) {
@@ -42,7 +56,7 @@ public class MyLinkedList<E> extends AbstractList<E> implements Deque<E> {
     }
 
     @Override
-    public int lastIndexOf(E element) {
+    public int lastIndexOf(Object element) {
         int lastIndex = -1;
 
         Node<E> currentNode = head;
@@ -80,6 +94,22 @@ public class MyLinkedList<E> extends AbstractList<E> implements Deque<E> {
         size--;
 
         return removed.element;
+    }
+
+
+    @Override
+    public ListIterator<E> listIterator() {
+        return null;
+    }
+
+    @Override
+    public ListIterator<E> listIterator(int index) {
+        return null;
+    }
+
+    @Override
+    public List<E> subList(int fromIndex, int toIndex) {
+        return null;
     }
 
     @Override
@@ -133,6 +163,11 @@ public class MyLinkedList<E> extends AbstractList<E> implements Deque<E> {
     @Override
     public <T> T[] toArray(T[] a) {
         return null;
+    }
+
+    @Override
+    public boolean addAll(int index, Collection<? extends E> c) {
+        return false;
     }
 
     @Override

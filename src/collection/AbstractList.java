@@ -1,8 +1,9 @@
 package collection;
 
 import java.util.Collection;
+import java.util.List;
 
-public abstract class AbstractList<E> implements MyList<E> {
+public abstract class AbstractList<E> implements List<E> {
 
     @Override
     public boolean add(E element) {

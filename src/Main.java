@@ -1,28 +1,20 @@
-import collection.MyArrayList;
-import collection.MyLinkedList;
-import collection.MyList;
-
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.PriorityQueue;
 
 public class Main {
     public static void main(String[] args) {
-        Queue<String> linkedList = new MyLinkedList<>();
+        PriorityQueue<Integer> numbers = new PriorityQueue<>();
+        numbers.add(232);
+        numbers.add(43);
+        numbers.add(56);
+        numbers.add(75);
 
-        linkedList.add("A");
-        linkedList.offer("B");
+        for (Integer i : numbers) {
+            System.out.println(i);
+        }
 
-        Deque<String> dequeLinkedList = (Deque<String>) linkedList;
-        dequeLinkedList.offerFirst("C");
-        dequeLinkedList.offerFirst("D");
-        dequeLinkedList.offerFirst("E");
-
-        MyList<String> list = (MyList<String>) dequeLinkedList;
-        list.add(2, "F");
-
+        int size = numbers.size();
+        for (int i = 0; i < size; i++) { // i = 2 size = 2
+            System.out.println(numbers.poll());
+        }
     }
 }
